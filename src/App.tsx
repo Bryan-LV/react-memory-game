@@ -12,7 +12,15 @@ const data = [
   { id: 1, card: { view: 'X', pairId: 1 } },
   { id: 2, card: { view: 'X', pairId: 1 } },
   { id: 3, card: { view: 'Y', pairId: 2 } },
-  { id: 4, card: { view: 'Y', pairId: 2 } }
+  { id: 4, card: { view: 'Y', pairId: 2 } },
+  { id: 5, card: { view: 'Z', pairId: 3 } },
+  { id: 6, card: { view: 'Z', pairId: 3 } },
+  { id: 7, card: { view: 'A', pairId: 4 } },
+  { id: 8, card: { view: 'A', pairId: 4 } },
+  { id: 9, card: { view: 'B', pairId: 5 } },
+  { id: 10, card: { view: 'B', pairId: 5 } },
+  { id: 11, card: { view: 'C', pairId: 6 } },
+  { id: 12, card: { view: 'C', pairId: 6 } }
 ];
 
 

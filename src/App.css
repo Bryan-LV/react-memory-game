@@ -3,11 +3,10 @@
 }
 
 .gameboard {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  cursor: pointer;
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  max-width: 600px;
+  margin: auto;
 }
 
 .card {
@@ -26,6 +25,7 @@
   transform: rotateX(0deg) rotateY(182deg) rotateZ(0deg);
   position: relative;
   transition: all 300ms ease-in;
+  cursor: pointer;
 }
 
 .card:after {
@@ -35,7 +35,7 @@
   position: absolute;
   top: 0px;
   left: 0px;
-  background: red;
+  background: #09161b;
   transform: rotateY( 180deg );
   transform-style: preserve-3d;
   backface-visibility: visible;
