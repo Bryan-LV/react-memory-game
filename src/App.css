@@ -1,4 +1,8 @@
-.App {
+* {
+  box-sizing: border-box;
+}
+
+.gameboard {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,10 +12,45 @@
 
 .card {
   display: inline-block;
-  padding: 40px;
+  width: 100px;
+  height: 100px;
+  text-align: center;
   background-color: #09161b;
   color: white;
   border-radius: 4px;
   margin: 10px;
-  font-size: 2rem;
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: rotateX(0deg) rotateY(182deg) rotateZ(0deg);
+  position: relative;
+  transition: all 300ms ease-in;
+}
+
+.card:after {
+  content: '';
+  right: 0px;
+  bottom: 0px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background: red;
+  transform: rotateY( 180deg );
+  transform-style: preserve-3d;
+  backface-visibility: visible;
+  transition: all 300ms ease-in;
+}
+
+.card-container:hover .card {
+  transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+}
+
+.card-container:hover .card::after {
+  transform: scale(0)
+}
+
+
+.card h1 {
+  margin: 0;
 }

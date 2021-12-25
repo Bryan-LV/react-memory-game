@@ -1,35 +1,85 @@
-import { useReducer } from 'react'
+import { useReducer, useEffect, useState } from 'react'
 import './App.css'
-
-const data = [{
-  id: 1,
-  card: 'X'
-}, {
-  id: 2,
-  card: 'Y'
-},];
-
-interface gameState {
-  totalMoves: number;
-  firstPick: ({ id: number, card: string; } | null),
-  secondPick: ({ id: number, card: string; } | null),
+interface Card {
+  id: number,
+  card: {
+    view: string,
+    pairId: number
+  }
 }
 
-const initialState: gameState = {
-  totalMoves: 0,
-  firstPick: null,
-  secondPick: null
-}
+const data = [
+  { id: 1, card: { view: 'X', pairId: 1 } },
+  { id: 2, card: { view: 'X', pairId: 1 } },
+  { id: 3, card: { view: 'Y', pairId: 2 } },
+  { id: 4, card: { view: 'Y', pairId: 2 } }
+];
 
-function gameReducer(state: gameState , action: {type: string, action: null}) {
-  return state;
-}
 
-function App() {  
-  const [gameState, dispatch] = useReducer(gameReducer, initialState)
+// See https://github.com/coolaj86/knuth-shuffle
+function shuffle(array: any[]) {
+  let currentIndex = array.length, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (currentIndex != 0) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+
+  return array;
+}
+const shuffledData = shuffle(data);
+
+function App() {
+  const [totalMoves, setTotalMoves] = useState(0);
+  const [lastPick, setLastPick] = useState<Card | null>(null);
+  const [gameMove, setGameMove] = useState<number>(0);
+  const [pairsSolved, setPairsSolved] = useState(0);
+
+
+  const handleClick = (card: Card) => {
+    setTotalMoves(ps => ps += 1);
+
+    // remember last pick
+    if (gameMove === 0) setLastPick(card);
+
+    if (gameMove === 1) {
+      if (card.card.pairId === lastPick?.card.pairId) {
+        setPairsSolved(ps => ps += 1);
+        // clear board
+        setLastPick(null);
+      }
+    }
+
+    setGameMove(ps => {
+      let count = 0;
+      if (ps === 0) count = 1;
+      if (ps === 1) count = 0;
+      return count;
+    })
+  }
 
   return (
     <div className="App">
+      <h1>Pairs Solved: {pairsSolved}</h1>
+      <h1 className="">Total Moves: {totalMoves}</h1>
+      <div className="gameboard">
+        {shuffledData.map(card => {
+          return (
+            <div className="card-container">
+              <div className="card" id={card.id.toString()} key={card.id} onClick={() => handleClick(card)}>
+                <h1>{card.card.view}</h1>
+              </div>
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }
