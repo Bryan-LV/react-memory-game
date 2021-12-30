@@ -74,7 +74,6 @@ function App() {
                if(card) card.card.solved =  true;
                return card;
             })
-            setLastPick(null);
          }
       }
 
