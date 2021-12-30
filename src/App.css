@@ -20,6 +20,7 @@ body {
   display: grid;
   grid-template-columns: repeat(3,1fr);
   max-width: 600px;
+  place-items: center;
   margin: auto;
 }
 
@@ -28,7 +29,7 @@ body {
   margin: auto;
 }
 
-@media screen and (min-width: 500px){
+@media screen and (min-width: 600px){
   .gameboard {
     grid-template-columns: repeat(4,1fr);
   }
@@ -47,8 +48,8 @@ body {
 /* CARD */
 .card {
   display: inline-block;
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   text-align: center;
   background-color: #09161b;
   color: white;
@@ -80,6 +81,10 @@ body {
   transition: all 300ms ease-in;
 }
 
+.card:hover::after {
+  background-color: #3b6f84;
+}
+
 /* flip card */
 .card-container .card.rotate {
   transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
@@ -89,6 +94,7 @@ body {
   transform: scale(0)
 }
 
-.card__title {
-  margin: 0;
+.card__image {
+  max-width: 100%;
+  padding: 20px;
 }

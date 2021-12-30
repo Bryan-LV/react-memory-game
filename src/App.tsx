@@ -1,5 +1,6 @@
-import { useReducer, useEffect, useState } from 'react'
+import { useState } from 'react'
 import './App.css'
+import {cow, crocodile, flamingo, fox, giraffe, tiger} from './assets';
 interface Card {
    id: number,
    card: {
@@ -10,18 +11,18 @@ interface Card {
 }
 
 const data = [
-   { id: 1, card: { view: 'X', pairId: 1, solved: false } },
-   { id: 2, card: { view: 'X', pairId: 1, solved: false } },
-   { id: 3, card: { view: 'Y', pairId: 2, solved: false } },
-   { id: 4, card: { view: 'Y', pairId: 2, solved: false } },
-   { id: 5, card: { view: 'Z', pairId: 3, solved: false } },
-   { id: 6, card: { view: 'Z', pairId: 3, solved: false } },
-   { id: 7, card: { view: 'A', pairId: 4, solved: false } },
-   { id: 8, card: { view: 'A', pairId: 4, solved: false } },
-   { id: 9, card: { view: 'B', pairId: 5, solved: false } },
-   { id: 10, card: { view: 'B', pairId: 5, solved: false } },
-   { id: 11, card: { view: 'C', pairId: 6, solved: false } },
-   { id: 12, card: { view: 'C', pairId: 6, solved: false } }
+   { id: 1, card: { view: cow, pairId: 1, solved: false } },
+   { id: 2, card: { view: cow , pairId: 1, solved: false } },
+   { id: 3, card: { view: giraffe, pairId: 2, solved: false } },
+   { id: 4, card: { view: giraffe, pairId: 2, solved: false } },
+   { id: 5, card: { view: crocodile, pairId: 3, solved: false } },
+   { id: 6, card: { view: crocodile, pairId: 3, solved: false } },
+   { id: 7, card: { view: flamingo, pairId: 4, solved: false } },
+   { id: 8, card: { view: flamingo, pairId: 4, solved: false } },
+   { id: 9, card: { view: fox, pairId: 5, solved: false } },
+   { id: 10, card: { view: fox, pairId: 5, solved: false } },
+   { id: 11, card: { view: tiger, pairId: 6, solved: false } },
+   { id: 12, card: { view: tiger, pairId: 6, solved: false } }
 ];
 
 
@@ -98,7 +99,7 @@ function App() {
                return (
                   <div className="card-container">
                      <div className={cardClass} id={card.id.toString()} key={card.id} onClick={() => handleClick(card)}>
-                        <h1 className="card__title">{card.card.view}</h1>
+                        <img className="card__image" src={card.card.view}/> 
                      </div>
                   </div>
                )
