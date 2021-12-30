@@ -62,6 +62,7 @@ body {
   position: relative;
   transition: all 300ms ease-in;
   cursor: pointer;
+  border-radius: 4px;
 }
 
 .card:after {
@@ -71,6 +72,7 @@ body {
   position: absolute;
   top: 0px;
   left: 0px;
+  border-radius: 4px;
   background: #09161b;
   transform: rotateY( 180deg );
   transform-style: preserve-3d;
@@ -78,11 +80,12 @@ body {
   transition: all 300ms ease-in;
 }
 
-.card-container:hover .card {
+/* flip card */
+.card-container .card.rotate {
   transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
 }
 
-.card-container:hover .card::after {
+.card-container .card.rotate::after {
   transform: scale(0)
 }
 

@@ -4,23 +4,24 @@ interface Card {
    id: number,
    card: {
       view: string,
-      pairId: number
+      pairId: number 
+      solved: boolean
    }
 }
 
 const data = [
-   { id: 1, card: { view: 'X', pairId: 1 } },
-   { id: 2, card: { view: 'X', pairId: 1 } },
-   { id: 3, card: { view: 'Y', pairId: 2 } },
-   { id: 4, card: { view: 'Y', pairId: 2 } },
-   { id: 5, card: { view: 'Z', pairId: 3 } },
-   { id: 6, card: { view: 'Z', pairId: 3 } },
-   { id: 7, card: { view: 'A', pairId: 4 } },
-   { id: 8, card: { view: 'A', pairId: 4 } },
-   { id: 9, card: { view: 'B', pairId: 5 } },
-   { id: 10, card: { view: 'B', pairId: 5 } },
-   { id: 11, card: { view: 'C', pairId: 6 } },
-   { id: 12, card: { view: 'C', pairId: 6 } }
+   { id: 1, card: { view: 'X', pairId: 1, solved: false } },
+   { id: 2, card: { view: 'X', pairId: 1, solved: false } },
+   { id: 3, card: { view: 'Y', pairId: 2, solved: false } },
+   { id: 4, card: { view: 'Y', pairId: 2, solved: false } },
+   { id: 5, card: { view: 'Z', pairId: 3, solved: false } },
+   { id: 6, card: { view: 'Z', pairId: 3, solved: false } },
+   { id: 7, card: { view: 'A', pairId: 4, solved: false } },
+   { id: 8, card: { view: 'A', pairId: 4, solved: false } },
+   { id: 9, card: { view: 'B', pairId: 5, solved: false } },
+   { id: 10, card: { view: 'B', pairId: 5, solved: false } },
+   { id: 11, card: { view: 'C', pairId: 6, solved: false } },
+   { id: 12, card: { view: 'C', pairId: 6, solved: false } }
 ];
 
 
@@ -42,25 +43,36 @@ function shuffle(array: any[]) {
 
    return array;
 }
-const shuffledData = shuffle(data);
+const shuffledData: Card[] = shuffle(data);
 
 function App() {
    const [totalMoves, setTotalMoves] = useState(0);
    const [lastPick, setLastPick] = useState<Card | null>(null);
+   const [selected, setSelected] = useState<Card | null>();
    const [gameMove, setGameMove] = useState<number>(0);
    const [pairsSolved, setPairsSolved] = useState(0);
 
 
    const handleClick = (card: Card) => {
-      setTotalMoves(ps => ps += 1);
+      if (card.card.solved) return;
 
-      // remember last pick
+      setTotalMoves(ps => ps += 1);
+      setSelected(card);
+
       if (gameMove === 0) setLastPick(card);
 
       if (gameMove === 1) {
-         if (card.card.pairId === lastPick?.card.pairId) {
+         if (card.card.pairId === lastPick?.card.pairId && !card.card.solved) {
             setPairsSolved(ps => ps += 1);
-            // clear board
+            setLastPick(card => {
+               if(card) card.card.solved =  true;
+               return card;
+            })
+            
+            setSelected(card => {
+               if(card) card.card.solved =  true;
+               return card;
+            })
             setLastPick(null);
          }
       }
@@ -81,9 +93,11 @@ function App() {
          </div>
          <div className="gameboard">
             {shuffledData.map(card => {
+               const cardClass = card.id === selected?.id || card.card.solved ? 'rotate card': 'card';
+
                return (
                   <div className="card-container">
-                     <div className="card" id={card.id.toString()} key={card.id} onClick={() => handleClick(card)}>
+                     <div className={cardClass} id={card.id.toString()} key={card.id} onClick={() => handleClick(card)}>
                         <h1 className="card__title">{card.card.view}</h1>
                      </div>
                   </div>
